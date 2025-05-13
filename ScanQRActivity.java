@@ -1,4 +1,4 @@
-package com.example.libraryapp;
+package com.example.android;
 
 import android.content.DialogInterface;
 import android.content.Intent;

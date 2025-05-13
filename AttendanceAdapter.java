@@ -1,4 +1,4 @@
-package com.example.libraryapp;
+package com.example.android;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
     public AttendanceAdapter(List<AttendanceModel> attendanceList) {
         this.attendanceList = attendanceList;
-    }
+    }   
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,7 +43,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
             super(itemView);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtStatus = itemView.findViewById(R.id.txtStatus);
-            cardView = itemView.findViewById(R.id.cardView);
+            cardView = itemView.findViewById(R.id.CardView);
         }
     }
 }

@@ -5,91 +5,100 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- News Image Box -->
+    <!-- Header -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="#0071BC"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="STI"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:titleCentered="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <!-- News Image -->
     <ImageView
         android:id="@+id/newsImage"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="216dp"
         android:layout_margin="16dp"
-        android:background="@drawable/_88312378_1072522594908233_4529103717958814266_n"
         android:scaleType="centerCrop"
-        android:src="@drawable/news_placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/_88312378_1072522594908233_4529103717958814266_n"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Dues Image Box -->
-
-    <!-- Footer Buttons -->
+    <!-- Dues Image -->
     <ImageView
         android:id="@+id/duesImage"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="222dp"
         android:layout_margin="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/_89821119_1080093064151186_4356362493821287797_n"
         android:scaleType="centerCrop"
-        android:src="@drawable/dues_placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/_89821119_1080093064151186_4356362493821287797_n"
+        app:layout_constraintTop_toBottomOf="@id/newsImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newsImage" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Footer Buttons -->
     <LinearLayout
         android:id="@+id/footerButtons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/btnDue"
             android:layout_width="0dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:text="Due"
             android:drawableTop="@android:drawable/ic_menu_my_calendar"
             android:backgroundTint="#0071BC"
             android:textColor="@android:color/white"
-            android:padding="8dp"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/btnHistory"
             android:layout_width="0dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:text="History"
             android:drawableTop="@android:drawable/ic_menu_recent_history"
             android:backgroundTint="#0071BC"
             android:textColor="@android:color/white"
-            android:padding="8dp"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/btnScanQR"
             android:layout_width="0dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:text="Scan QR"
             android:drawableTop="@android:drawable/ic_menu_camera"
             android:backgroundTint="#0071BC"
             android:textColor="@android:color/white"
-            android:padding="8dp"/>
+            android:gravity="center" />
 
         <Button
             android:id="@+id/btnAttendance"
             android:layout_width="0dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:text="Attendance"
             android:drawableTop="@android:drawable/ic_menu_myplaces"
             android:backgroundTint="#0071BC"
             android:textColor="@android:color/white"
-            android:padding="8dp"/>
-
+            android:gravity="center" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

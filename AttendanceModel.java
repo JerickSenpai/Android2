@@ -1,4 +1,4 @@
-package com.example.libraryapp;
+package com.example.android;
 
 // Model class to represent Attendance data
 public class AttendanceModel {
