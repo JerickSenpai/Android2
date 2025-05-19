@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDashboard();
+                validateLogin();
             }
         });
 
@@ -40,9 +40,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void openDashboard() {
-        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-        startActivity(intent);
-        finish();
+    private void validateLogin() {
+        String inputUser = username.getText().toString().trim();
+        String inputPass = password.getText().toString().trim();
+
+        // Dummy credentials for now
+        if (inputUser.equals("student") && inputPass.equals("1234")) {
+            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+        }
     }
 }

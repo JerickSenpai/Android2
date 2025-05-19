@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#0071BC"
-        app:title="STI"
+        app:title="Attendance Record"
         app:titleTextColor="@android:color/white"
-        app:navigationIcon="@android:drawable/ic_media_previous"
+        app:navigationIcon="?attr/actionModeCloseDrawable"
         app:titleCentered="true"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="MissingConstraints" />

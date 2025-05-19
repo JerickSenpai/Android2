@@ -1,64 +1,64 @@
 package com.example.android;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import androidx.appcompat.app.AlertDialog;
+import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
-// This is the Scan QR screen
 public class ScanQRActivity extends AppCompatActivity {
 
-    Button btnScanQR; // Button to simulate scanning
+    private DecoratedBarcodeView barcodeScannerView;
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
 
-        // Setup toolbar
-        Toolbar toolbar = findViewById(R.id.toolbarScanQR);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        barcodeScannerView = findViewById(R.id.barcode_scanner);
+        backButton = findViewById(R.id.back_button);
 
-        btnScanQR = findViewById(R.id.btnScanQR);
+        barcodeScannerView.decodeContinuous(callback);
 
-        // Click event for Scan QR button
-        btnScanQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBookInfoDialog();
-            }
-        });
-    }
-
-    // Simulate scanning and show a popup with book info
-    private void showBookInfoDialog() {
-        // PLACEHOLDER: Replace this with real QR database lookup later
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Book Info");
-        builder.setMessage("Book: Harry Potter\nAuthor: J.K. Rowling\nStatus: Available");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.show();
-    }
-
-    // Back button on toolbar returns to Dashboard
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            startActivity(new Intent(ScanQRActivity.this, DashboardActivity.class));
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ScanQRActivity.this, DashboardActivity.class);
+            startActivity(intent);
             finish();
-            return true;
+        });
+    }
+
+    private final BarcodeCallback callback = new BarcodeCallback() {
+        @Override
+        public void barcodeResult(BarcodeResult result) {
+            String scannedData = result.getText();
+            if (scannedData == null) return;
+
+            barcodeScannerView.pause(); // Pause after reading
+
+            if (scannedData.startsWith("http://") || scannedData.startsWith("https://")) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(scannedData));
+                startActivity(browserIntent);
+            } else {
+                Toast.makeText(ScanQRActivity.this, "Scanned: " + scannedData, Toast.LENGTH_SHORT).show();
+                barcodeScannerView.resume();
+            }
         }
-        return super.onOptionsItemSelected(item);
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        barcodeScannerView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        barcodeScannerView.pause();
     }
 }

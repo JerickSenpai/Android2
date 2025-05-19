@@ -1,18 +1,16 @@
 package com.example.android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerHistory;
-    private HistoryAdapter historyAdapter;
+    private ListView historyListView;
+    private HistoryAdapter adapter;
     private ArrayList<Transaction> transactionList;
 
     @Override
@@ -24,25 +22,19 @@ public class HistoryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerHistory = findViewById(R.id.recyclerHistory);
-        recyclerHistory.setLayoutManager(new LinearLayoutManager(this));
+        historyListView = findViewById(R.id.historyListView);
 
         transactionList = new ArrayList<>();
+        transactionList.add(new Transaction("Java Programming", "2025-04-10", "Returned"));
+        transactionList.add(new Transaction("Data Structures", "2025-03-28", "Overdue"));
 
-        // Dummy data
-        transactionList.add(new Transaction("Borrowed", "Harry Potter", "April 25, 2025"));
-        transactionList.add(new Transaction("Returned", "Science 101", "April 26, 2025"));
-        transactionList.add(new Transaction("Borrowed", "Math for Dummies", "April 26, 2025"));
-        transactionList.add(new Transaction("Returned", "English 101", "April 27, 2025"));
-
-        historyAdapter = new HistoryAdapter(transactionList);
-        recyclerHistory.setAdapter(historyAdapter);
+        adapter = new HistoryAdapter(this, transactionList);
+        historyListView.setAdapter(adapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            startActivity(new Intent(HistoryActivity.this, DashboardActivity.class));
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }

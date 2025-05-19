@@ -1,48 +1,40 @@
 package com.example.android;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.ArrayAdapter;
+import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
+public class HistoryAdapter extends ArrayAdapter<Transaction> {
 
-    private ArrayList<Transaction> transactionList;
-
-    public HistoryAdapter(ArrayList<Transaction> transactionList) {
-        this.transactionList = transactionList;
+    public HistoryAdapter(@NonNull Context context, ArrayList<Transaction> transactions) {
+        super(context, 0, transactions);
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_transaction, parent, false);
-        return new ViewHolder(view);
-    }
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+        Transaction transaction = getItem(position);
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Transaction transaction = transactionList.get(position);
-        holder.txtType.setText(transaction.getType());
-        holder.txtBook.setText(transaction.getBookTitle());
-        holder.txtDate.setText(transaction.getDate());
-    }
-
-    @Override
-    public int getItemCount() {
-        return transactionList.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtType, txtBook, txtDate;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            txtType = itemView.findViewById(R.id.txtType);
-            txtBook = itemView.findViewById(R.id.txtBook);
-            txtDate = itemView.findViewById(R.id.txtDate);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_transaction, parent, false);
         }
+
+        TextView title = convertView.findViewById(R.id.bookTitle);
+        TextView date = convertView.findViewById(R.id.transactionDate);
+        TextView status = convertView.findViewById(R.id.transactionStatus);
+
+        if (transaction != null) {
+            title.setText(transaction.getBookTitle());
+            date.setText(transaction.getDate());
+            status.setText(transaction.getStatus());
+        }
+
+        return convertView;
     }
 }

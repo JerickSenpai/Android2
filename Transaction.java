@@ -1,25 +1,29 @@
-    package com.example.android;
+package com.example.android;
 
-    public class Transaction {
-        private String type;
-        private String bookTitle;
-        private String date;
+public class Transaction {
+    private String bookTitle;
+    private String date;
+    private String status;
 
-        public Transaction(String type, String bookTitle, String date) {
-            this.type = type;
-            this.bookTitle = bookTitle;
-            this.date = date;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getBookTitle() {
-            return bookTitle;
-        }
-
-        public String getDate() {
-            return date;
-        }
+    public Transaction(String bookTitle, String date, String status) {
+        this.bookTitle = bookTitle;
+        this.date = date;
+        this.status = status;
     }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public int getType() {
+        return 0;
+    }
+}
