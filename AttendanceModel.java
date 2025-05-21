@@ -1,20 +1,17 @@
 package com.example.android;
 
-// Model class to represent Attendance data
 public class AttendanceModel {
-    String date;
-    String status;
+    private String timeIn;
+    private String timeOut;
+    private String date;
 
-    public AttendanceModel(String date, String status) {
+    public AttendanceModel(String timeIn, String timeOut, String date) {
+        this.timeIn = timeIn;
+        this.timeOut = timeOut;
         this.date = date;
-        this.status = status;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getStatus() {
-        return status;
-    }
+    public String getTimeIn() { return timeIn; }
+    public String getTimeOut() { return timeOut; }
+    public String getDate() { return date; }
 }

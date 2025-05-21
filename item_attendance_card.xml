@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    card_view:cardElevation="6dp"
     card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="6dp">
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:gravity="center">
 
+        <!-- Row for Time In and Time Out -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvTimeIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time In: 08:00 AM"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="32dp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvTimeOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time Out: 05:00 PM"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginStart="32dp"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <!-- Date Centered Below -->
         <TextView
-            android:id="@+id/txtDate"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="April 25, 2025"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Present"
-            android:textColor="#0071BC"
-            android:textSize="16sp" />
-
+            android:text="May 21, 2025"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
