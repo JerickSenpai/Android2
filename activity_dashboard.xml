@@ -72,13 +72,13 @@
             android:layout_height="140dp"
             android:layout_margin="12dp"
             android:background="@drawable/modern_button_background"
-            android:drawableTop="@android:drawable/ic_menu_camera"
+            android:drawableTop="@android:drawable/stat_sys_headset"
             android:drawablePadding="8dp"
             android:gravity="center"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:paddingTop="24dp"
-            android:text="Scan QR"
+            android:text="Borrow"
             android:textColor="@android:color/white" />
 
         <Button
