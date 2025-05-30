@@ -12,15 +12,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="start">
 
-        <!-- Row for Time In and Time Out -->
+        <!-- Name -->
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Juan Dela Cruz"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:paddingBottom="4dp" />
+
+        <!-- Section -->
+        <TextView
+            android:id="@+id/tvSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BSIT 3A"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:paddingBottom="4dp" />
+
+        <!-- Address -->
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Library Room"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:paddingBottom="4dp" />
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="May 31, 2025"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:paddingBottom="8dp" />
+
+        <!-- Time Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingBottom="4dp">
+            android:gravity="start">
 
             <TextView
                 android:id="@+id/tvTimeIn"
@@ -29,8 +69,8 @@
                 android:text="Time In: 08:00 AM"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginEnd="32dp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="32dp" />
 
             <TextView
                 android:id="@+id/tvTimeOut"
@@ -39,18 +79,7 @@
                 android:text="Time Out: 05:00 PM"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginStart="32dp"
                 android:textColor="@android:color/black" />
         </LinearLayout>
-
-        <!-- Date Centered Below -->
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="May 21, 2025"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

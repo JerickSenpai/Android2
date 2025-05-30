@@ -28,8 +28,8 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         AttendanceModel attendance = attendanceList.get(position);
-        holder.tvTimeIn.setText("Time In: " + attendance.getTimeIn());
-        holder.tvTimeOut.setText("Time Out: " + attendance.getTimeOut());
+        holder.tvTimeIn.setText(attendance.getTimeIn());
+        holder.tvTimeOut.setText(attendance.getTimeOut());
         holder.tvDate.setText(attendance.getDate());
     }
 
@@ -40,7 +40,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTimeIn, tvTimeOut, tvDate;
-        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);

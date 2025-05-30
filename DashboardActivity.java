@@ -50,7 +50,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         btnScanQR.setOnClickListener(view -> {
-            startActivity(new Intent(DashboardActivity.this, ScanQRActivity.class));
+            startActivity(new Intent(DashboardActivity.this, BorrowQR.class));
         });
 
         btnAttendance.setOnClickListener(view -> {

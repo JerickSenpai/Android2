@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AttendanceRecordActivity extends AppCompatActivity {
@@ -28,22 +27,29 @@ public class AttendanceRecordActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Initialize list with dummy data or real DB data
-        attendanceList = new ArrayList<>();
-        attendanceList.add(new AttendanceModel("08:00 AM", "05:00 PM", "May 20, 2025"));
-        attendanceList.add(new AttendanceModel("08:15 AM", "05:05 PM", "May 21, 2025"));
-        attendanceList.add(new AttendanceModel("08:05 AM", "05:02 PM", "May 22, 2025"));
-
         // Setup RecyclerView
         recyclerViewAttendance = findViewById(R.id.recyclerViewAttendance);
         recyclerViewAttendance.setLayoutManager(new LinearLayoutManager(this));
+
+        // Fetch data from real source (e.g., local database or API)
+        loadAttendanceData();
+    }
+
+    private void loadAttendanceData() {
+        // TODO: Replace with real data source (API, database, etc.)
+        // Example using a local database or remote API
+
+        // attendanceList = fetchFromDatabase(); OR fetchFromApi();
+        // For now, initialize as empty
+        attendanceList = new java.util.ArrayList<>();
+
         attendanceAdapter = new AttendanceAdapter(attendanceList);
         recyclerViewAttendance.setAdapter(attendanceAdapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(AttendanceRecordActivity.this, DashboardActivity.class));
             finish();
             return true;
