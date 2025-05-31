@@ -89,9 +89,15 @@ public class DashboardActivity extends AppCompatActivity {
     // Handle logout action
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_logout) {
-            Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getOnBackPressedDispatcher().onBackPressed();
+            return true;
+        } else if (id == R.id.action_logout) {
+            // Perform logout - go to login screen and clear activity stack
+            Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             finish();
             return true;
         }

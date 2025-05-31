@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="4dp"
-    android:foreground="?attr/selectableItemBackground">
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/bookTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="Book Title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
-        <TextView
-            android:id="@+id/bookTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Book Title"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+    <TextView
+        android:id="@+id/borrowDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Borrowed: YYYY-MM-DD"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:layout_marginTop="4dp" />
 
-        <TextView
-            android:id="@+id/transactionDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="April 25, 2025"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginTop="4dp" />
+    <TextView
+        android:id="@+id/returnDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Returned: YYYY-MM-DD"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:layout_marginTop="2dp" />
 
-        <TextView
-            android:id="@+id/transactionStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Borrowed"
-            android:textSize="14sp"
-            android:textColor="#0071BC"
-            android:textStyle="italic"
-            android:layout_marginTop="4dp" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -2,28 +2,36 @@ package com.example.android;
 
 public class Transaction {
     private String bookTitle;
-    private String date;
-    private String status;
+    private String borrowDate;
+    private String returnDate;
 
-    public Transaction(String bookTitle, String date, String status) {
+    public Transaction(String bookTitle, String borrowDate, String returnDate) {
         this.bookTitle = bookTitle;
-        this.date = date;
-        this.status = status;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
     }
 
     public String getBookTitle() {
         return bookTitle;
     }
 
-    public String getDate() {
-        return date;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
-    public String getStatus() {
-        return status;
+    public String getBorrowDate() {
+        return borrowDate;
     }
 
-    public int getType() {
-        return 0;
+    public void setBorrowDate(String borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
     }
 }
