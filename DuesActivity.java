@@ -1,6 +1,7 @@
 package com.example.android;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ public class DuesActivity extends AppCompatActivity {
     ArrayList<String> duesList;
     ArrayAdapter<String> adapter;
     String URL = "http://192.168.x.x/myapi/dues.php"; // Replace with your IP/path
+    private boolean useTestData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,43 @@ public class DuesActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, duesList);
         listView.setAdapter(adapter);
 
-        fetchDuesFromServer();
+        // Check if we should use test data
+        if (getIntent().getBooleanExtra("use_test_data", false)) {
+            useTestData = true;
+            getSupportActionBar().setTitle("Dues (Test Data)");
+            loadPlaceholderDues();
+        } else {
+            fetchDuesFromServer();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Add menu item to toggle test data
+        menu.add(0, 1, 0, useTestData ? "Use Real Data" : "Use Test Data");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else if (item.getItemId() == 1) {
+            // Toggle between test and real data
+            useTestData = !useTestData;
+            invalidateOptionsMenu(); // Refresh menu
+
+            if (useTestData) {
+                getSupportActionBar().setTitle("Dues (Test Data)");
+                loadPlaceholderDues();
+            } else {
+                getSupportActionBar().setTitle("Dues");
+                fetchDuesFromServer();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void fetchDuesFromServer() {
@@ -53,28 +91,37 @@ public class DuesActivity extends AppCompatActivity {
                                 duesList.add(duesArray.getString(i));
                             }
                             adapter.notifyDataSetChanged();
+
+                            if (duesList.isEmpty()) {
+                                Toast.makeText(this, "No dues found", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(this, "Failed to load dues", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Failed to load dues. Loading test data instead.", Toast.LENGTH_SHORT).show();
+                            loadPlaceholderDues();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(this, "Parsing error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Parsing error. Loading test data instead.", Toast.LENGTH_SHORT).show();
+                        loadPlaceholderDues();
                     }
                 },
                 error -> {
                     error.printStackTrace();
-                    Toast.makeText(this, "Network error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Network error. Loading test data instead.", Toast.LENGTH_SHORT).show();
+                    loadPlaceholderDues();
                 });
 
         queue.add(request);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    /**
+     * Load placeholder dues data for testing
+     */
+    private void loadPlaceholderDues() {
+        duesList.clear();
+        duesList.addAll(PlaceholderDataGenerator.generateSampleDues(5));
+        adapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Loaded " + duesList.size() + " sample dues", Toast.LENGTH_SHORT).show();
     }
 }

@@ -2,6 +2,7 @@ package com.example.android;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class HistoryActivity extends AppCompatActivity {
     private ListView historyListView;
     private HistoryAdapter adapter;
     private ArrayList<Transaction> transactionList;
+    private boolean useTestData = false; // Flag to switch between real and test data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,43 @@ public class HistoryActivity extends AppCompatActivity {
         adapter = new HistoryAdapter(this, transactionList);
         historyListView.setAdapter(adapter);
 
-        loadTransactionHistory();
+        // Check if we should use test data (for development/testing)
+        if (getIntent().getBooleanExtra("use_test_data", false)) {
+            useTestData = true;
+            getSupportActionBar().setTitle("History (Test Data)");
+            loadPlaceholderData();
+        } else {
+            loadTransactionHistory();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Add menu item to toggle test data
+        menu.add(0, 1, 0, useTestData ? "Use Real Data" : "Use Test Data");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else if (item.getItemId() == 1) {
+            // Toggle between test and real data
+            useTestData = !useTestData;
+            invalidateOptionsMenu(); // Refresh menu
+
+            if (useTestData) {
+                getSupportActionBar().setTitle("History (Test Data)");
+                loadPlaceholderData();
+            } else {
+                getSupportActionBar().setTitle("History");
+                loadTransactionHistory();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadTransactionHistory() {
@@ -47,7 +85,8 @@ public class HistoryActivity extends AppCompatActivity {
         String studentId = sharedPref.getString("student_id", "");
 
         if (studentId.isEmpty()) {
-            Toast.makeText(this, "Student ID not found. Please login again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Student ID not found. Loading test data instead.", Toast.LENGTH_SHORT).show();
+            loadPlaceholderData();
             return;
         }
 
@@ -56,7 +95,8 @@ public class HistoryActivity extends AppCompatActivity {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> parseHistoryData(response),
                 error -> {
-                    Toast.makeText(this, "Failed to load history: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to load history. Loading test data instead.", Toast.LENGTH_SHORT).show();
+                    loadPlaceholderData(); // Fallback to test data on network error
                 }
         );
 
@@ -94,15 +134,18 @@ public class HistoryActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             Toast.makeText(this, "Error parsing history: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            loadPlaceholderData(); // Fallback to test data on parsing error
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    /**
+     * Load placeholder data for testing and development
+     */
+    private void loadPlaceholderData() {
+        transactionList.clear();
+        transactionList.addAll(PlaceholderDataGenerator.generateSampleTransactions(12));
+        adapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Loaded " + transactionList.size() + " sample transactions", Toast.LENGTH_SHORT).show();
     }
 }
